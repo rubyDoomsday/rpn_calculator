@@ -8,8 +8,8 @@ menu-->user: What is your input?
 user->menu: Enter input (eg. 6 2 +)
 menu<->menu: check for exit or proceed
 menu->calculator: POST raw_input [String]
-calculator->math: Math.calculat(resource)
+calculator->math: Math.calculate(resource)
 math-->calculator: 200 Math response
 calculator-->menu: result
-menu-->user: Render ouput
+menu-->user: Render output
 end # loop
