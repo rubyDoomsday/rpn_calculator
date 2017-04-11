@@ -1,0 +1,15 @@
+participant O\n/|\\\n/ \\ as user
+participant interface as menu
+participant calculator as calculator
+participant Math as math
+
+loop
+menu-->user: What is your input?
+user->menu: Enter input (eg. 6 2 +)
+menu<->menu: check for exit or proceed
+menu->calculator: POST raw_input [String]
+calculator->math: Math.calculat(resource)
+math-->calculator: 200 Math response
+calculator-->menu: result
+menu-->user: Render ouput
+end # loop
