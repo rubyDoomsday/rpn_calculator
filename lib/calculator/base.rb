@@ -48,6 +48,7 @@ module Rpn
       # @param operator [String] eg '+'
       # @return [Float] sum total of provided calculation params
       def compute(numbers, operator)
+        raise ArgumentError if numbers.empty?
         return calculate_by_type(numbers, operator) unless operator.nil?
         numbers.last
       end
@@ -74,6 +75,7 @@ module Rpn
       # @return [Array] eg [1.0, 2.0, 3.0]
       def extract_numbers(input_array)
         set = input_array.take_while { |i| i.match(NUMBER) }
+        raise ArgumentError if set.count > 2
         set.map(&:to_f)
       end
 

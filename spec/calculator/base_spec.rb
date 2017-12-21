@@ -38,7 +38,6 @@ RSpec.describe Rpn::Calculator::Base do
         '1 3 +',                # 4
         '1 3 + 2 *',            # 8
         '1 3 -',                # -2
-        '3 *',                  # 3
         '4 2 /',                # 2
         '2 4 * 3 + 10 -',       # 1
         '2',                    # 2
@@ -52,7 +51,15 @@ RSpec.describe Rpn::Calculator::Base do
         subject = described_class.new
         subject.calculate(input)
       end
-      expect(answers).to eq [4.0, 8.0, -2.0, 3.0, 2.0, 1.0, 2.0, 13.5, 3.8]
+      expect(answers).to eq [4.0, 8.0, -2.0, 2.0, 1.0, 2.0, 13.5, 3.8]
+    end
+  end
+
+  context 'new tests' do
+    let(:input) { '1 2 3 4 +' }
+
+    it 'raises error on more that 2 numbers in set' do
+      expect { subject.calculate(input) }.to raise_error ArgumentError
     end
   end
 
@@ -68,15 +75,14 @@ RSpec.describe Rpn::Calculator::Base do
     context 'no operator' do
       let(:input) { '1 3' }
 
-      it 'returns first digit' do
-        expect(subject.calculate(input)).to eq 3.0
+      it 'raises an error when no operator provided' do
+        expect { subject.calculate(input) }.to raise_error ArgumentError
       end
     end
 
     context 'no input' do
       it 'returns first digit' do
-        expect(subject.calculate('')).to eq nil
-        expect(subject.calculate(nil)).to eq nil
+        expect { subject.calculate('') }.to raise_error ArgumentError
       end
     end
 
